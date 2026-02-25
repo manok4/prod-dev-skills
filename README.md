@@ -1,6 +1,6 @@
 # prod-dev-skills
 
-A collection of [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skills that form a complete product development pipeline, from brainstorming through implementation and commit.
+A collection of markdown-based skills that form a complete product development pipeline, from brainstorming through implementation and commit. Works with agent coding CLIs including [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Codex](https://github.com/openai/codex), and [OpenCode](https://github.com/opencode-ai/opencode).
 
 ## Skills Included
 
@@ -24,14 +24,21 @@ Each skill works independently — you don't have to use the full pipeline. Pick
 
 ## Installation
 
-### Option 1: Clone the Repo (Recommended)
-
-Clone this repository, then copy the skills you want into your Claude Code skills directory:
+### Step 1: Clone the Repo
 
 ```bash
-# Clone the repo
 git clone https://github.com/manok4/prod-dev-skills.git
+```
 
+### Step 2: Install for Your CLI
+
+Each skill is a folder containing a `SKILL.md` file and optional `references/`. Choose the instructions for your tool:
+
+#### Claude Code
+
+Copy skill folders into your Claude Code skills directory:
+
+```bash
 # Copy all skills
 cp -r prod-dev-skills/skills/* ~/.claude/skills/
 
@@ -40,35 +47,49 @@ cp -r prod-dev-skills/skills/brainstorming ~/.claude/skills/
 cp -r prod-dev-skills/skills/prd-docs ~/.claude/skills/
 ```
 
-### Option 2: Download a Single Skill
+Skills will appear as slash commands (e.g., `/brainstorming`, `/prd-docs`) after restarting Claude Code or starting a new conversation.
 
-If you only need one skill, you can download just its folder:
+#### Codex
 
-1. Navigate to the [`skills/`](skills/) directory in this repo
-2. Open the skill folder you want (e.g., [`brainstorming/`](skills/brainstorming/))
-3. Download the `SKILL.md` file and any files in the `references/` subfolder
-4. Place them in `~/.claude/skills/<skill-name>/`
+Copy skill folders into your Codex instructions directory:
 
-### Option 3: Download as ZIP
+```bash
+# Copy all skills
+cp -r prod-dev-skills/skills/* ~/.codex/skills/
+
+# Or copy individual skills
+cp -r prod-dev-skills/skills/brainstorming ~/.codex/skills/
+```
+
+Alternatively, reference the `SKILL.md` content in your project's `AGENTS.md` file.
+
+#### OpenCode
+
+Copy skill folders into your OpenCode instructions directory:
+
+```bash
+# Copy all skills
+cp -r prod-dev-skills/skills/* ~/.opencode/skills/
+
+# Or copy individual skills
+cp -r prod-dev-skills/skills/brainstorming ~/.opencode/skills/
+```
+
+Alternatively, reference the `SKILL.md` content in your project's configuration.
+
+### Alternative: Download as ZIP
 
 1. Click the green **Code** button at the top of this repo
 2. Select **Download ZIP**
-3. Unzip and copy the skill folders:
-
-```bash
-unzip prod-dev-skills-main.zip
-cp -r prod-dev-skills-main/skills/* ~/.claude/skills/
-```
-
-### Verify Installation
-
-After installing, restart Claude Code or start a new conversation. The skills will appear as slash commands (e.g., `/brainstorming`, `/prd-docs`).
-
-Verify by running any skill command or checking `/help`.
+3. Unzip and copy the skill folders to the appropriate directory for your CLI (see above)
 
 ## Requirements
 
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI installed and configured
+One of the following agent coding CLIs installed and configured:
+
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
+- [Codex](https://github.com/openai/codex)
+- [OpenCode](https://github.com/opencode-ai/opencode)
 
 ## Skill Structure
 
@@ -82,7 +103,7 @@ skill-name/
     └── guide.md
 ```
 
-The `SKILL.md` file is the only required file. It contains the skill's name, trigger description, and full instructions. The `references/` folder holds templates and guides that the skill reads during execution.
+The `SKILL.md` file is the only required file. It contains the skill's name, trigger description, and full instructions. The `references/` folder holds templates and guides that the skill reads during execution. All content is plain markdown — portable across any tool that supports markdown-based instructions.
 
 ## Usage Tips
 
