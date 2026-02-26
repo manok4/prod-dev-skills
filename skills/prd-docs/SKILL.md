@@ -5,7 +5,7 @@ description: "Product Requirements Document generator. Use when the user wants t
 
 # PRD Document Generator
 
-Generate complete, production-quality Product Requirements Documents through collaborative discovery. Ask targeted questions to extract requirements, then produce a structured PRD covering problem, goals, users, features, UX, technical architecture, risks, and roadmap.
+Generate complete, production-quality Product Requirements Documents through collaborative discovery. Ask targeted questions to extract requirements, then produce a structured PRD covering problem, goals, users, features, UX, risks, and roadmap.
 
 <HARD-GATE>
 Do NOT write the PRD until you have completed the discovery phases and the user has confirmed the gathered information is sufficient. Every PRD goes through discovery first — no exceptions, regardless of how much context the user provides upfront.
@@ -19,7 +19,7 @@ Do NOT write the PRD until you have completed the discovery phases and the user 
 [3] Synthesize    → Present a structured summary for approval
 [4] Draft         → Write the PRD using the template
 [5] Review        → Walk through each section, revise per feedback
-[6] Deliver       → Save to docs/ directory
+[6] Deliver       → Save to docs/requirements/ and hand off to TDD
 ```
 
 ## Phase 1: Orient
@@ -57,8 +57,8 @@ See [references/questioning-guide.md](references/questioning-guide.md) for the f
 7. **Features & priorities** — What it does, grouped and prioritized
 8. **Data & integrations** — Data sources, formats, external systems
 9. **UX & frontend** — Key pages, user journeys, accessibility needs
-10. **Technical direction** — Stack preferences, hosting, security model
-11. **Delivery & risks** — Phasing, team, budget, known risks
+10. **Technical direction** — Stack preferences, hosting, security model, budget (preferences only — detailed technical design belongs in TDD)
+11. **Delivery & risks** — Phasing, budget, known risks
 
 **Adaptive depth:** Not every PRD needs all 11 topics explored deeply. A small feature PRD may only need topics 1-5 and 7. A platform PRD needs all of them. Gauge from the user's answers how deep to go.
 
@@ -96,23 +96,25 @@ Use the PRD template in [references/prd-template.md](references/prd-template.md)
 - **No placeholder text** — every section must have real content or be removed. No "[TODO]" in the output.
 - **No invented metrics** — if the user didn't provide a number, don't fabricate one. Write "TBD" or "To be validated" instead.
 - **Business rules get their own section** — if the domain has non-obvious rules, include Section 4
-- **Appendices for bulk detail** — field mappings, data schemas, glossaries go in appendices to keep the main doc scannable
+- **Appendices for bulk detail** — glossaries and reference tables go in appendices to keep the main doc scannable
+- **Technical direction, not technical design** — Section 8 captures preferences and constraints (stack, hosting, budget). Do NOT include architecture diagrams, database schemas, API endpoints, or deployment configs — those belong in the TDD
 
 ## Phase 5: Review
 
 Present the PRD section by section, asking after each major group:
 - Sections 1-3 (Problem, Goals, Users) — "Does the framing look right?"
 - Sections 4-6 (Domain, Features, UX) — "Are the features and priorities accurate?"
-- Sections 7-11 (Technical, Cost, Roadmap, Risks) — "Does the technical direction and plan work?"
+- Sections 7-11 (Metrics, Technical Direction, Roadmap, Risks, Open Questions) — "Does the direction and plan look right?"
 
 Revise per feedback before moving on.
 
 ## Phase 6: Deliver
 
 Save the final PRD to the project's documentation directory:
-- Default path: `docs/PRD-<product-name>.md`
-- If `claudedocs/` exists and is the project convention, use that instead
-- Ask the user if they want it saved elsewhere
+- Default path: `docs/requirements/PRD-<product-name>.md`
+- If a brainstorming design doc exists in `docs/plans/`, add a `**Related**:` link to it in the PRD header
+
+After saving, ask the user if they'd like to proceed to the `tdd-docs` skill to create the Technical Design Document, or come back to it later. Do NOT auto-invoke the TDD skill — wait for the user's explicit confirmation.
 
 ## Key Principles
 

@@ -36,7 +36,7 @@ Every TDD goes through this process — no exceptions, regardless of how much co
 $ARGUMENTS - The path to a PRD file (e.g., `docs/PRD-MyApp.md`).
 
 If no path is provided:
-1. Search for PRD files: `Glob: docs/**/PRD-*.md`
+1. Search for PRD files: `Glob: docs/requirements/PRD-*.md`
 2. If exactly one PRD found, use it
 3. If multiple found, ask the user to pick one via AskUserQuestion
 4. If none found, inform the user and suggest running `/prd-docs` first
@@ -67,8 +67,7 @@ Read the full PRD and extract the technical foundation:
    - **Functional requirements** — feature groups with priorities
    - **Data sources** — what data enters the system, formats, frequency
    - **UX requirements** — pages, views, user journeys
-   - **Technical direction** — any stack preferences, hosting, security model stated in the PRD
-   - **Infrastructure & cost** — budget constraints, provider preferences
+   - **Technical direction** — stack preferences, hosting, security model, budget constraints stated in the PRD
    - **Implementation phases** — roadmap from the PRD
    - **Risks** — known risks that need technical mitigation
    - **Open questions** — unresolved decisions from the PRD
@@ -180,6 +179,7 @@ Use the TDD template in [references/tdd-template.md](references/tdd-template.md)
 
 **Always include** (every TDD needs these):
 - 1. Executive Summary
+- 2. PRD Context
 - 4. System Architecture
 - 5. Technology Stack
 - 6. Database Schema
@@ -187,10 +187,9 @@ Use the TDD template in [references/tdd-template.md](references/tdd-template.md)
 - 14. API Design
 - 15. Deployment & Infrastructure
 - 16. Implementation Roadmap
-- 18. Risks & Mitigations
+- 18. Technical Risks & Mitigations
 
 **Include if applicable** (based on project complexity):
-- 2. Business Context — include if the domain has non-obvious rules or workflows
 - 3. Data Sources — include if the system ingests external data (field tables required)
 - 7. ETL Pipeline — include if the system has data ingestion or transformation
 - 8-10. Domain-specific sections — include for complex processing logic (matching, scoring, reconciliation). Name these sections based on the domain.
@@ -212,7 +211,8 @@ Use the TDD template in [references/tdd-template.md](references/tdd-template.md)
 - **No invented metrics** — if a number wasn't provided or calculated, write "TBD" or "To be validated".
 - **Mirror the PRD's language** — use the same terminology, entity names, and role names.
 - **Cross-reference the PRD** — link back to specific PRD sections where relevant (e.g., "See PRD Section 5.3 for business requirements").
-- **Roadmap aligns with PRD** — the TDD implementation roadmap should map to the PRD's phases but with technical deliverables.
+- **Roadmap aligns with PRD** — the TDD implementation roadmap should map to the PRD's phases but with technical deliverables only. Do not reproduce phase descriptions, dependencies, or exit criteria from the PRD.
+- **Do not reproduce PRD content** — cross-reference the PRD instead of copying business context, workflows, stakeholder tables, or product risks. The TDD should only contain business rules that directly drive schema, validation, or processing decisions.
 
 ### Scaling Rules
 
@@ -224,7 +224,7 @@ Use the TDD template in [references/tdd-template.md](references/tdd-template.md)
 
 Present the TDD in logical groups, asking after each:
 
-1. **Sections 1-2** (Executive Summary, Business Context) — "Does the technical framing capture the business correctly?"
+1. **Sections 1-2** (Executive Summary, PRD Context) — "Does the technical framing and PRD cross-references look right?"
 2. **Sections 3-5** (Data Sources, Architecture, Tech Stack) — "Are the data source details accurate? Does the architecture and stack look right?"
 3. **Section 6** (Database Schema) — "Does the schema cover all entities and relationships? Any missing fields or tables?"
 4. **Sections 7-10** (Pipeline, Processing, Domain sections) — "Does the processing logic match your expectations? Any edge cases missing?"
@@ -236,13 +236,12 @@ Revise per feedback before moving on.
 ## Phase 7: Deliver
 
 Save the final TDD to the project's documentation directory:
-- Default path: `docs/TDD-<product-name>.md` (same directory as the PRD)
-- If the PRD is at `docs/requirements/PRD-X.md`, save at `docs/requirements/TDD-X.md`
-- Match the PRD's location pattern
+- Default path: `docs/requirements/TDD-<product-name>.md` (same directory as the PRD)
 
 After saving:
 1. **Cross-link the documents** — add a `**Related**:` line to the PRD header pointing to the TDD, and vice versa. Edit the PRD file to add the link if it doesn't already exist.
-2. **Report completion** — summarize what was created and suggest next steps (e.g., `/prd-to-features` to generate feature docs).
+2. **Report completion** — summarize what was created.
+3. **Hand off to prd-to-features** — ask the user if they'd like to proceed to the `prd-to-features` skill to break the PRD and TDD into individual feature implementation docs, or come back to it later. Do NOT auto-invoke the skill — wait for the user's explicit confirmation.
 
 ---
 

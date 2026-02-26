@@ -16,7 +16,7 @@ Unified template for all modes. Adapt sections based on mode:
 **Status:** [Implemented | In Development | Beta | Deprecated]
 **Version:** [version from package/code]
 **Last Updated:** [current date]
-**Owner:** [team/person if known]
+**Source:** [PRD/TDD reference or feature request origin]
 
 ---
 
@@ -299,5 +299,7 @@ Not every section applies to every feature. Apply these rules:
 - **Skip Performance** if not performance-sensitive
 - **Skip Monitoring Plan** if not a service/backend feature
 - **Skip Deployment Plan** if documenting a library/utility
+- **Skip Common Issues & Solutions** in NEW mode (can't know issues for an unbuilt feature)
+- **Skip Quick Reference** in NEW mode (can't write a cheat sheet for code that doesn't exist yet)
 
 For skipped sections, do NOT include empty sections. Simply omit them.

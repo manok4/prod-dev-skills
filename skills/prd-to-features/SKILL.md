@@ -16,7 +16,7 @@ user_invocable: true
 
 Convert a completed PRD and TDD into individual, implementable feature documentation files.
 Uses the PRD for functional requirements (Section 5), user experience flows (Section 6),
-and implementation phases (Section 10). Uses the TDD for tech stack, database schema, API
+and implementation phases (Section 9). Uses the TDD for tech stack, database schema, API
 contracts, and infrastructure — generating a foundational Phase 0 project-setup feature before
 any user-story features. Produces sequentially numbered feature docs using the feature-docs
 NEW mode template. TDD is optional but strongly recommended; without it, foundational setup
@@ -30,7 +30,7 @@ features require manual tech stack input from the user.
 
 ## Arguments
 
-$ARGUMENTS - The path to a PRD file (e.g., `docs/PRD-MyApp.md`), optionally followed by `--tdd <tdd-path>`.
+$ARGUMENTS - The path to a PRD file (e.g., `docs/requirements/PRD-MyApp.md`), optionally followed by `--tdd <tdd-path>`.
 
 **PRD resolution** (if no PRD path provided):
 1. Search for PRD files: `Glob: docs/**/PRD-*.md`
@@ -56,7 +56,7 @@ $ARGUMENTS - The path to a PRD file (e.g., `docs/PRD-MyApp.md`), optionally foll
 
 ```
 [1] Load & Parse     → Read the PRD and TDD, extract structured data (ask user for tech stack if no TDD)
-[2] Extract Features → Identify features from Sections 5, 6, 10 + foundational setup from TDD
+[2] Extract Features → Identify features from Sections 5, 6, 9 + foundational setup from TDD
 [3] Build Plan       → Phase 0 (project-setup) first, then map remaining features to phases
 [4] Verify           → Present extraction to user for confirmation
 [5] Generate         → Invoke /feature-docs new for each feature in order (FR01 project-setup first)
@@ -70,10 +70,10 @@ $ARGUMENTS - The path to a PRD file (e.g., `docs/PRD-MyApp.md`), optionally foll
 3. **Parse PRD sections** — identify and extract content from these sections:
    - **Section 5: Functional Requirements** — feature groups with priorities
    - **Section 6: User Experience** — core user journey, pages/views, role-based access, UX considerations
-   - **Section 10: Implementation Roadmap** — phases with deliverables and dependencies
+   - **Section 9: Implementation Roadmap** — phases with deliverables and dependencies
    - **Section 3: Users & Stakeholders** — personas and user stories (for feature context)
    - **Section 4: Business Rules & Domain Logic** — constraints features must respect
-   - **Section 8: Technical Architecture** — tech stack and design context
+   - **Section 8: Technical Direction** — stack preferences, security model, budget constraints
    - **Section 2: Goals** — business/user goals and non-goals
 4. **Identify the product name** from the PRD title/metadata
 5. **Load the TDD** (if available) using the Read tool. Extract these technical sections:
@@ -124,7 +124,7 @@ Extract UI/UX-facing features that may not have explicit Section 5 entries:
 - If a page/view has no corresponding Section 5 entry, create a new feature for it (e.g., a dashboard page, settings page, onboarding flow)
 - Every step in the Core User Journey (6.1) must be traceable to at least one feature. Flag any orphaned steps.
 
-#### Source C: Implementation Roadmap (Section 10)
+#### Source C: Implementation Roadmap (Section 9)
 
 Each phase lists deliverables. Map each deliverable to a feature from Sources A/B:
 - If a deliverable matches an existing feature, assign that feature to the phase
@@ -215,15 +215,13 @@ Display the feature manifest using this format:
 |---|---------|----------|--------|-------------|
 | FR01 | project-setup | Critical | TDD / user input | Project scaffolding, tech stack, DB, auth, infra |
 
-### Phase 1: [Phase Name] — [Duration if specified]
-
+### Phase 1: [Phase Name] 
 | # | Feature | Priority | PRD Source | Description |
 |---|---------|----------|------------|-------------|
 | FR02 | feature-name | Critical | 5.1, 6.2 | Brief description |
 | FR03 | feature-name | High | 5.3, 6.1 | Brief description |
 
-### Phase 2: [Phase Name] — [Duration if specified]
-
+### Phase 2: [Phase Name] 
 | # | Feature | Priority | PRD Source | Description |
 |---|---------|----------|------------|-------------|
 | FR04 | feature-name | High | 5.2 | Brief description |
@@ -261,10 +259,10 @@ After user confirmation, generate all feature docs by invoking the **feature-doc
    - **Functional requirements** — the specific requirements from Section 5 for this feature
    - **UX context** — relevant pages/views from Section 6.2, user journey steps from Section 6.1, role access from Section 6.3, UX considerations from Section 6.4
    - **Business rules** — constraints from Section 4 that apply to this feature
-   - **Technical context** — relevant stack, APIs, data models, security from Section 8
+   - **Technical context** — stack preferences, security model, budget constraints from PRD Section 8 (detailed APIs, data models, and architecture come from the TDD, not the PRD)
    - **User stories** — stories from Section 3 that map to this feature
    - **Goals** — business/user goals from Section 2 that this feature supports
-   - **Risks** — relevant risks from Section 11
+   - **Risks** — relevant risks from PRD Section 10
    - **Dependencies** — other FRxx features this depends on or that depend on it
    - **PRD reference** — source PRD path and specific section numbers
    - **TDD context** (if TDD is available) — include these additional details:
@@ -345,8 +343,8 @@ Phase 2: FR04 → FR05 → ...
 
 ### Next Steps
 - Review each feature doc for completeness
-- Run `/feature-docs update docs/features/FRXX-name.md` after implementation to sync with code
-- Use feature docs as implementation guides for each development cycle
+- Implement features one at a time using `/implement-feature docs/features/FR01-project-setup.md`, then FR02, FR03, etc.
+- After implementing a feature, run `/feature-docs update docs/features/FRXX-name.md` to sync docs with code
 ```
 
 ---
@@ -368,7 +366,7 @@ Phase 2: FR04 → FR05 → ...
 
 - PRD file not found → inform user, suggest `Glob: docs/PRD-*.md` to find PRDs
 - PRD has no Section 5 → inform user the PRD may be incomplete, ask how to proceed
-- PRD has no Section 10 (no phases) → assign all features to a single "Implementation" phase, ordered by priority
+- PRD has no Section 9 (no phases) → assign all features to a single "Implementation" phase, ordered by priority
 - Feature count exceeds 20 → warn user and suggest grouping related features
 - docs/features/ would overwrite existing files → ask for confirmation before overwriting
 
@@ -376,7 +374,7 @@ Phase 2: FR04 → FR05 → ...
 
 ```
 # Convert a PRD to feature docs (auto-detects TDD in same directory)
-/prd-to-features docs/PRD-MyApp.md
+/prd-to-features docs/requirements/PRD-MyApp.md
 
 # Explicitly provide both PRD and TDD
 /prd-to-features docs/requirements/PRD-MyApp.md --tdd docs/requirements/TDD-MyApp.md
@@ -385,5 +383,5 @@ Phase 2: FR04 → FR05 → ...
 /prd-to-features
 
 # PRD only (no TDD available)
-/prd-to-features docs/PRD-MyApp.md
+/prd-to-features docs/requirements/PRD-MyApp.md
 ```

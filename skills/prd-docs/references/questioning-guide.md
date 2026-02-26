@@ -146,19 +146,18 @@ Organized by topic. Ask one question at a time. Skip questions already answered 
 - "Any budget constraints for infrastructure?" *(open-ended)*
 - "Are there any performance requirements? (response times, concurrent users, data volume)"
 
-**Exit when you can fill**: Technology Stack, System Architecture, Security & Data Privacy, Infrastructure & Cost
+**Exit when you can fill**: Technical Direction section (stack preferences, data sources overview, security model, budget constraints)
 
 ---
 
 ## 11. Delivery & Risks
 
-**Goal**: Understand phasing, team, and known risks.
+**Goal**: Understand phasing and known risks.
 
 - "Is there a target launch date or deadline?" *(open-ended)*
-- "Who's building this? What's the team composition?" *(open-ended)*
 - "Should this be delivered in phases or all at once?" *(multiple-choice)*
   - Options: Phased (incremental delivery), Single release (big bang), MVP first then iterate, Other
 - "What keeps you up at night about this project? What could go wrong?"
 - "Are there any external dependencies? (third-party APIs, vendor contracts, data from other teams)"
 
-**Exit when you can fill**: Implementation Roadmap, Team Composition, Risks & Mitigations, Open Questions
+**Exit when you can fill**: Implementation Roadmap, Risks & Mitigations, Open Questions

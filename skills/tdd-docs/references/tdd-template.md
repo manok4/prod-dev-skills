@@ -37,31 +37,25 @@
 
 ---
 
-## 2. Business Context
+## 2. PRD Context
 
-### How the Business Works
+<!-- Brief cross-reference to the PRD. Do NOT reproduce full business context, workflows, or stakeholder tables — those live in the PRD. Only list the specific business rules and role details that directly drive technical decisions in this document. -->
 
-<!-- Numbered workflow showing the business process end-to-end. This is the technical team's reference for understanding the domain — more operational than the PRD narrative. -->
+**Source PRD**: [PRD-ProductName.md](PRD-ProductName.md)
 
-1. [Step 1]
-2. [Step 2]
-3. [Step N]
+### Business Rules Affecting Technical Design
 
-### Business Rules
+<!-- Only rules that drive schema decisions, validation logic, or processing flows. Reference PRD Section 4 for the complete list. -->
 
-<!-- Bulleted list of domain rules that directly affect technical design. Focus on rules that drive schema decisions, validation logic, or processing flows. Reference PRD Section 4 for the complete domain model. -->
+- [Rule — e.g., "Medicare ID is the universal unique identifier" → drives PK strategy and cross-source matching]
+- [Rule — e.g., "Agent NPN is unique per tenant, not globally" → drives composite unique constraint]
 
-- [Rule 1 — e.g., "Medicare ID is the universal unique identifier across all systems"]
-- [Rule 2]
-- [Rule N]
+### Roles & Access Levels
 
-### Stakeholders
+<!-- Summary of roles relevant to auth implementation. See PRD Section 3 for full personas and user stories. -->
 
-<!-- Table of stakeholders with their access levels and technical interests. Maps to the auth/authorization implementation. -->
-
-| Role | Name | Access Level | Interest |
-|------|------|-------------|----------|
-| [Role] | [Name] | [Access tier] | [What they need technically] |
+- **[Role 1]** — [access level relevant to auth/RLS design]
+- **[Role 2]** — [access level]
 
 ---
 
@@ -413,17 +407,15 @@ VARIABLE_NAME=<description>
 
 ## 16. Implementation Roadmap
 
-<!-- Phase-by-phase with checkboxes. Each phase lists concrete deliverables. This should align with the PRD roadmap but at a technical level. -->
+<!-- Technical deliverables mapped to the PRD's phases (see PRD Section 9). Do NOT duplicate the PRD's phase descriptions, dependencies, or exit criteria — only list the technical tasks for each phase. -->
 
-### Phase 1: [Name] ([Duration])
-- [ ] [Technical deliverable 1]
-- [ ] [Technical deliverable 2]
+### Phase 1: [Name from PRD]- [ ] [Technical task 1 — e.g., "Create database migration for core tables"]
+- [ ] [Technical task 2 — e.g., "Implement auth middleware with JWT"]
 
-### Phase 2: [Name] ([Duration])
-- [ ] [Technical deliverable 1]
-- [ ] [Technical deliverable 2]
+### Phase 2: [Name from PRD]- [ ] [Technical task 1]
+- [ ] [Technical task 2]
 
-<!-- Repeat for each phase. -->
+<!-- Repeat for each PRD phase. -->
 
 ---
 
@@ -444,11 +436,13 @@ VARIABLE_NAME=<description>
 
 ---
 
-## 18. Risks & Mitigations
+## 18. Technical Risks & Mitigations
+
+<!-- Technical risks only — performance bottlenecks, data migration concerns, dependency risks, failure modes. Product and business risks are in PRD Section 10. -->
 
 | Risk | Probability | Impact | Mitigation |
 |------|------------|--------|------------|
-| [Risk] | [High/Med/Low] | [High/Med/Low] | [Specific mitigation] |
+| [Technical risk] | [High/Med/Low] | [High/Med/Low] | [Specific technical mitigation] |
 
 ---
 

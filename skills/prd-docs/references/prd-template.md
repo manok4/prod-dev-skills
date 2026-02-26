@@ -5,6 +5,7 @@
 **Status**: Draft | In Review | Approved
 **Author**: [Name]
 **Reviewers**: [Names]
+**Related**: [Design Doc](../plans/YYYY-MM-DD-<topic>-design.md) — High-Level Design from brainstorming
 
 ---
 
@@ -107,7 +108,7 @@
 
 ## 5. Functional Requirements
 
-<!-- Group by feature area. Each group gets a priority (Critical | High | Medium | Low) and a brief description of what it does, NOT how it's implemented. Implementation details go in Section 8. -->
+<!-- Group by feature area. Each group gets a priority (Critical | High | Medium | Low) and a brief description of what it does, NOT how it's implemented. Implementation details belong in the TDD. -->
 
 ### 5.1 [Feature Group Name] — Priority: [Critical|High|Medium|Low]
 
@@ -187,115 +188,43 @@
 
 ---
 
-## 8. Technical Architecture
+## 8. Technical Direction
 
-<!-- This section bridges product requirements to engineering. Detailed enough that an engineer can start building, but not so deep that it belongs in a separate design doc. For large systems, link to a separate Technical Design Document. -->
+<!-- Capture preferences and constraints that inform the Technical Design Document. This is NOT an architecture section — detailed technical design (schema, APIs, deployment) belongs in the TDD. -->
 
-### 8.1 System Architecture
+### Stack Preferences
 
-<!-- High-level architecture diagram (ASCII, Mermaid, or link to diagram tool). Show major components and data flow. -->
+- **Backend**: [Preference or "Open to recommendations"]
+- **Frontend**: [Preference or "Open to recommendations"]
+- **Database**: [Preference or "Open to recommendations"]
+- **Hosting**: [Preference — e.g., "Cloud PaaS", "Self-hosted", "No preference"]
 
-```
-[Architecture diagram here]
-```
+### Data Sources
 
-### 8.2 Technology Stack
+<!-- High-level overview of what data the system consumes. Field-level detail belongs in the TDD. -->
 
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| [Backend] | [e.g., FastAPI, Python 3.12+] | [API, ETL processing] |
-| [Frontend] | [e.g., Vite + React, TypeScript] | [SPA dashboard] |
-| [Database] | [e.g., PostgreSQL 16] | [Primary data store] |
+| Source | Format | Frequency | Key Identifier |
+|--------|--------|-----------|---------------|
+| [Source 1] | [CSV/Excel/API] | [Weekly/Daily/Real-time] | [Primary key field] |
 
-### 8.3 Data Sources
+### Security & Compliance
 
-<!-- For each external data source: file format, frequency, key fields, and known quirks. -->
+- **Auth model**: [e.g., "Role-based access, admin-created users"]
+- **Compliance**: [e.g., "HIPAA", "SOC 2", "None specific"]
+- **Data isolation**: [e.g., "Multi-tenant", "Single-tenant"]
 
-| Source | Format | Frequency | Key Identifier | Notable Quirks |
-|--------|--------|-----------|---------------|----------------|
-| [Source 1] | [CSV] | [Weekly] | [Field name] | [e.g., "Date field uses Excel serial numbers"] |
+### Budget Constraints
 
-<!-- If field mappings are extensive, move them to an appendix. -->
-
-### 8.4 Database Schema
-
-<!-- Core tables with key columns, relationships, and indexing strategy. Full DDL goes in an appendix or linked design doc. -->
-
-#### [Table Name]
-- **Scope**: [Global | Tenant-scoped]
-- **Purpose**: [1 sentence]
-- **Key columns**: [List the important ones]
-- **Indexes**: [Notable indexes]
-
-### 8.5 API Design
-
-<!-- List core endpoint groups. Full endpoint documentation goes in an API spec (OpenAPI/Swagger). -->
-
-| Group | Key Endpoints | Auth Required |
-|-------|--------------|---------------|
-| [Auth] | `POST /auth/login`, `POST /auth/refresh` | No (login), Yes (refresh) |
-| [Resource 1] | `GET /resource`, `GET /resource/{id}` | Yes |
-
-### 8.6 Security & Data Privacy
-
-- **Authentication**: [Method — e.g., JWT with refresh tokens]
-- **Authorization**: [Strategy — e.g., RLS + API middleware, role hierarchy]
-- **Data isolation**: [How tenant data is separated]
-- **PII handling**: [What PII exists, how it's protected]
-- **Secrets management**: [env vars, no secrets in code/git]
-
-### 8.7 Integration Points
-
-<!-- External systems this product connects to, and how. -->
-
-| System | Integration Method | Direction | Frequency |
-|--------|-------------------|-----------|-----------|
-| [System 1] | [Batch CSV import] | [Inbound] | [Weekly] |
+- **Infrastructure budget**: [e.g., "Free tier to start", "$50/mo", "No constraint"]
+- **Scaling expectations**: [e.g., "10 users initially, ~100 within a year"]
 
 ---
 
-## 9. Infrastructure & Cost
-
-### Deployment
-
-| Service | Provider | Tier | Est. Cost |
-|---------|----------|------|-----------|
-| [Backend] | [e.g., Railway] | [Starter] | [~$5/mo] |
-| [Frontend] | [e.g., Netlify] | [Free] | [$0] |
-| [Database] | [e.g., Neon] | [Free] | [$0] |
-
-### Cost Scaling Triggers
-
-<!-- When does cost jump? What triggers an upgrade? -->
-
-| Trigger | Current State | Upgrade Path | New Cost |
-|---------|--------------|-------------|----------|
-| [e.g., DB > 5 GB] | [0 GB] | [Paid tier] | [$X/mo] |
-
-### Environment Variables
-
-<!-- List required env vars (NO actual values). -->
-
-```
-DATABASE_URL=<connection string>
-JWT_SECRET_KEY=<random key>
-```
-
----
-
-## 10. Implementation Roadmap
-
-### Team Composition
-
-| Role | Count | Responsibilities |
-|------|-------|-----------------|
-| [Backend engineer] | [1-2] | [ETL, API, matching engine] |
-| [Frontend engineer] | [1] | [React dashboard, data grids] |
+## 9. Implementation Roadmap
 
 ### Phases
 
-#### Phase 1: [Name] — [Duration]
-
+#### Phase 1: [Name]
 **Deliverables**:
 - [ ] [Deliverable 1]
 - [ ] [Deliverable 2]
@@ -304,8 +233,7 @@ JWT_SECRET_KEY=<random key>
 
 **Exit criteria**: [How you know this phase is done]
 
-#### Phase 2: [Name] — [Duration]
-
+#### Phase 2: [Name]
 **Deliverables**:
 - [ ] [Deliverable 1]
 - [ ] [Deliverable 2]
@@ -318,7 +246,9 @@ JWT_SECRET_KEY=<random key>
 
 ---
 
-## 11. Risks & Mitigations
+## 10. Risks & Mitigations
+
+<!-- Focus on product and business risks. Technical risks belong in the TDD. -->
 
 | Risk | Probability | Impact | Mitigation |
 |------|------------|--------|------------|
@@ -327,7 +257,7 @@ JWT_SECRET_KEY=<random key>
 
 ---
 
-## 12. Open Questions
+## 11. Open Questions
 
 <!-- Decisions that haven't been made yet. Track who owns each question and when it needs resolution. -->
 
@@ -339,11 +269,7 @@ JWT_SECRET_KEY=<random key>
 
 ## Appendices
 
-### A. Data Source Field Mappings
-
-<!-- Detailed field-by-field mapping tables for each data source. Move here to keep the main document scannable. -->
-
-### B. Glossary
+### A. Glossary
 
 <!-- Domain-specific terms and their definitions. -->
 
@@ -351,7 +277,7 @@ JWT_SECRET_KEY=<random key>
 |------|-----------|
 | [Term 1] | [Definition] |
 
-### C. Change Log
+### B. Change Log
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
