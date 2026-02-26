@@ -327,12 +327,23 @@ After all batches are done (or the user stops early):
    - [Any changes made and why, or "None"]
 
    ### Next Steps
-   Ready to commit? I'll run `/commit-code` now to review, commit, and push.
+   Ready to update the feature doc and commit?
    ```
 
-4. **Commit the implementation** — after presenting the summary, ask:
+4. **Update the feature doc** — convert the feature doc from a plan to documentation of
+   what was actually built. Ask:
 
-   > "All tasks are complete and verified. Want me to commit the changes now?"
+   > "Want me to update the feature doc to reflect what was actually implemented?
+   > I'll run `/feature-docs update docs/features/FRXX-feature-name.md` to sync it."
+
+   - If the user approves → invoke `/feature-docs update <feature-doc-path>` to sync the
+     doc with the implementation (actual files, real code, deviations incorporated, status
+     changed to "Implemented")
+   - If the user declines → skip and proceed to commit
+
+5. **Commit everything** — implementation code + updated feature doc in one commit. Ask:
+
+   > "Ready to commit the implementation and updated docs?"
 
    - If the user approves → invoke `/commit-code` to review, stage, commit, and push
    - If the user wants to review first → show `git diff main` and wait
